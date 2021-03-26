@@ -41,8 +41,8 @@ const NewTaskInput = ({onAddNewTask}) => {
   return (
     <>
       <InputSection>
-        <Input placeholder="Wpisz treść zadania" value={newTask} onChange={e => setNewTask(e.target.value)}></Input>
-        <Button onClick={handleClick}>Dodaj zadanie</Button>
+        <Input data-cy="taskInput" placeholder="Wpisz treść zadania" value={newTask} onChange={e => setNewTask(e.target.value)}></Input>
+        <Button data-cy="taskSubmit" onClick={handleClick}>Dodaj zadanie</Button>
       </InputSection>
       <Error>{error}</Error>
     </>

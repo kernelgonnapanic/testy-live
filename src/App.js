@@ -75,7 +75,7 @@ function MyApp() {
             <Notification>Wszystkie zadania na dziś skończone</Notification>
           ) :
           (
-            <List>
+            <List data-cy="tasksList">
               {
                 tasks.map(task => (
                   <ListElement key={task.id} task={task} onToggle={handleToggle}/>
