@@ -1,9 +1,10 @@
-import {useState} from 'react';
-import styled from 'styled-components';
-import { v4 as uuidv4 } from 'uuid';
-import ListElement from './components/ListElement'
+import { useState } from "react";
+import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
+import ListElement from "./components/ListElement";
 
-import NewTaskInput from './components/NewTaskInput';
+import NewTaskInput from "./components/NewTaskInput";
+import Weather from "./components/Weather";
 
 const App = styled.div`
   background-color: #635995;
@@ -13,7 +14,7 @@ const App = styled.div`
 `;
 
 const Container = styled.div`
-  padding: 100px 20px 0 ;
+  padding: 100px 20px 0;
 `;
 
 const Title = styled.h1`
@@ -29,23 +30,26 @@ const List = styled.ul`
 `;
 
 const Notification = styled.div`
-  background-color: #E85F94;
+  background-color: #e85f94;
   color: black;
   font-size: 24px;
   border-radius: 5px;
   padding: 10px 15px;
 `;
 
-const initialTasks = [{
-  id: uuidv4(),
-  text: 'Zrobić sobie przerwę na kawę #self-care',
-  finished: false,
-}];
+const initialTasks = [
+  {
+    id: uuidv4(),
+    text: "Zrobić sobie przerwę na kawę #self-care",
+    finished: false,
+  },
+];
 
 function MyApp() {
   const [tasks, setTasks] = useState(initialTasks);
 
-  const shouldShowNotification = tasks.filter(elem => !elem.finished).length === 0;
+  const shouldShowNotification =
+    tasks.filter((elem) => !elem.finished).length === 0;
 
   const addNewTask = (value) => {
     const newTask = {
@@ -57,9 +61,9 @@ function MyApp() {
   };
 
   const handleToggle = (id) => {
-    const newTasks = tasks.map(elem => ({
+    const newTasks = tasks.map((elem) => ({
       ...elem,
-      finished: elem.id === id ? !elem.finished : elem.finished
+      finished: elem.id === id ? !elem.finished : elem.finished,
     }));
     setTasks(newTasks);
   };
@@ -68,21 +72,18 @@ function MyApp() {
     <App>
       <Container>
         <Title>System do zarządania zadaniami dla asystentek</Title>
-        <NewTaskInput onAddNewTask={addNewTask}/>
+        <NewTaskInput onAddNewTask={addNewTask} />
+        <Weather />
         <Title>Plan na dziś:</Title>
-        {
-          shouldShowNotification ? (
-            <Notification>Wszystkie zadania na dziś skończone</Notification>
-          ) :
-          (
-            <List data-cy="tasksList">
-              {
-                tasks.map(task => (
-                  <ListElement key={task.id} task={task} onToggle={handleToggle}/>
-                ))
-              }
-            </List>
-          )}
+        {shouldShowNotification ? (
+          <Notification>Wszystkie zadania na dziś skończone</Notification>
+        ) : (
+          <List data-cy="tasksList">
+            {tasks.map((task) => (
+              <ListElement key={task.id} task={task} onToggle={handleToggle} />
+            ))}
+          </List>
+        )}
       </Container>
     </App>
   );
