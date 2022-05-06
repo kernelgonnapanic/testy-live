@@ -25,7 +25,7 @@ const Weather = () => {
     fetch(url)
       .then((response) => response.json())
       .then(({ current }) => setWeather(current));
-  });
+  }, []);
 
   return (
     <WeatherContainer>
